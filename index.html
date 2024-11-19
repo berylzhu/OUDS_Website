@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUDS Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+			background-image: url(https://img.freepik.com/premium-photo/close-up-red-gold-background-with-diamond-pattern-generative-ai_955884-10893.jpg);
+		}
+		
+		#blink_text{	
+		  animation-name:blink;
+		  width:280px;
+		  animation-duration:2s;
+		  animation-timing-function:ease-in;
+		  animation-iteration-count:Infinite;
+		  }
+
+		@keyframes blink{
+		  0%{color:red;}
+		  50%{color:white;}
+		  100%{color:red;}
+		 }
+		
+		.title {
+			background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20210903/pngtree-casino-luxury-black-background-image_801555.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
+		    text-align: center;
+			color: #f2cb57;
+			font-size: 28px;
+			font-family: Impact, fantasy;
+			height: 200px;
+			width: 425px;
+			align-items: center;
+			border-style: ridge;
+			border-width: 12px;
+			border-color: #f2cb57;
+			margin: auto;
+			width: 50%;
+			padding: 10px;
+			position: relative;
+			padding-top: 55px;
+			
+		}
+
+        #instructions {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+			background-color: white;
+			background-image: url(https://t4.ftcdn.net/jpg/02/39/45/37/360_F_239453726_6rjXgbVs6RLXaxPU2eG11UKjLV2aMomJ.jpg);
+			image-height: 50%;
+			image-width: auto;
+			background-size: cover;
+			border-style: ridge;
+			border-color: #f2cb57;
+			border-width: 12px;
+			font-family: andale mono, monospace;
+			padding-top:620px;
+			padding-bottom:250px;
+			color: white;
+			font-size: 15px;
+			font-weight: bold;
+
+        }
+		
+		#instructions-text {
+			text-align: center;
+			width: 800px;
+			height: auto;
+			margin: 0 auto;
+			padding: 10px;
+			position: relative;		
+		}
+		
+		.object {
+		  animation: MoveUpDown 1s linear infinite;
+		  animation-duration:10s;
+		  position: absolute;
+		  left: 0;
+		  bottom: 0;
+		  margin-top:5040px;
+		}
+
+		@keyframes MoveUpDown {
+		  0%, 100% {
+			transform: translateY(0);
+		  }
+		  50% {
+			transform: translateY(100px);
+		  }
+		}
+		
+		#titletext {
+			animation: blink 1s infinite;
+		}
+
+        #game {
+            margin: 20px auto;
+            width: 300px;
+			background-color: white;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        input {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 80px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+			text-align: left;
+        }
+
+        .radio-group label {
+            
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            margin-left: 5px;
+        }
+
+        .wager-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+        }
+
+        .wager-group label {
+            margin-right: 10px;
+        }
+
+        .message {
+            margin: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+		<h1 id="titletext">OVER UNDER <br> DOUBLE SAME</h1>
+	</div>
+    <div id="instructions">
+		<div id= "instructions-text">
+		<div class="object">
+        <p>The game is played by rolling 2 dice twice. Every player begins the game with 20 points. The object of the game is to accumulate points.</p>
+        <h2>******* Game Instructions and Rules *******</h2>
+        <p>When the first roll occurs, the Roll_1 dice values and sum are set. After Roll_1, the player decides if the Roll_2 sum is likely to be over or under the Roll_1 sum. The player makes a wager based on their decision of over or under. Wagers can be from 0 to 10 points. If the player bets OVER or UNDER correctly, the player wins the amount of the wager, and that value is added to their point total. If the player bets OVER or UNDER incorrectly, the player loses points in the amount of the wager, and that value is subtracted from the player's point total.</p>
+        <h2>******** Special Cases ********</h2>
+        <p>If Roll_2 yields a double (e.g., 2,2 or 5,5), OR Roll_2 sum is the same as the Roll_1 sum, the round is lost, and the amount of the wager is subtracted from the player's point total. Note that the round is lost irrespective of the outcome of the over/under bet.</p>
+        <p>And that's the name of the game - OVER UNDER DOUBLE SAME!</p>
+		</div>
+		</div>
+    </div>
+    <div id="game">
+        <button id="roll1">Roll 1</button>
+        <div id="roll1Result"></div>
+        <div class="wager-group">
+            <label for="wager">Enter a wager amount between 1 and 10:</label>
+            <input type="number" id="wager" placeholder="Enter your wager (1-10)" min="1" max="10">
+        </div>
+        <div class="radio-group">
+            <div class="radio-item">
+                <input type="radio" id="over" name="prediction" value="over">
+                <label for="over">Over</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="under" name="prediction" value="under">
+                <label for="under">Under</label>
+            </div>
+        </div>
+        <button id="submitPrediction">Submit Prediction</button>
+        <div id="roll2Result"></div>
+        <div id="outcomeMessage" class="message"></div>
+        <div id="resultMessage" class="message"></div>
+		<div>Initial Points: 20</div>
+        <div id="points">Current Points: 20</div>
+    </div>
+    <script>
+        let points = 20;
+        let roll1Sum = 0;
+
+        document.getElementById('roll1').addEventListener('click', () => {
+            const roll1 = rollDice();
+            roll1Sum = roll1[0] + roll1[1];
+            document.getElementById('roll1Result').innerText = `Roll 1: Dice 1: ${roll1[0]}, Dice 2: ${roll1[1]}, Sum: ${roll1Sum}`;
+        });
+
+        document.getElementById('submitPrediction').addEventListener('click', () => {
+            const prediction = document.querySelector('input[name="prediction"]:checked');
+            if (prediction) {
+                playGame(prediction.value);
+            } else {
+                alert('Please select a prediction (Over or Under).');
+            }
+        });
+
+        function rollDice() {
+            const die1 = Math.floor(Math.random() * 6) + 1;
+            const die2 = Math.floor(Math.random() * 6) + 1;
+            return [die1, die2];
+        }
+
+        function playGame(prediction) {
+            const wager = parseInt(document.getElementById('wager').value);
+            if (isNaN(wager) || wager < 1 || wager > 10) {
+                alert('Please enter a valid wager between 1 and 10.');
+                return;
+            }
+
+            const roll2 = rollDice();
+            const roll2Sum = roll2[0] + roll2[1];
+            document.getElementById('roll2Result').innerText = `Roll 2: Dice 1: ${roll2[0]}, Dice 2: ${roll2[1]}, Sum: ${roll2Sum}`;
+
+            let outcomeMessage = '';
+            let resultMessage = '';
+            const initialPoints = points;
+
+            if (roll2[0] === roll2[1]) {
+                outcomeMessage = 'Roll 2 is a double!';
+                points -= wager;
+            } else if (roll2Sum === roll1Sum) {
+                outcomeMessage = 'Roll 2 is the same as Roll 1!';
+                points -= wager;
+            } else if (roll2Sum > roll1Sum) {
+                outcomeMessage = 'Roll 2 is over Roll 1!';
+                if (prediction === 'over') {
+                    points += wager;
+                } else {
+                    points -= wager;
+                }
+            } else {
+                outcomeMessage = 'Roll 2 is under Roll 1!';
+                if (prediction === 'under') {
+                    points += wager;
+                } else {
+                    points -= wager;
+                }
+            }
+
+            if (points > initialPoints) {
+                resultMessage = 'You won the round!';
+            } else {
+                resultMessage = 'You lost the round!';
+            }
+
+            document.getElementById('outcomeMessage').innerText = outcomeMessage;
+            document.getElementById('resultMessage').innerText = resultMessage;
+            document.getElementById('points').innerText = `Current Points: ${points}`;
+        }
+    </script>
+</body>
+</html>
+
+
