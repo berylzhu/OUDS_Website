@@ -1,3 +1,12 @@
+<!-- 
+Author: Beryl Zhu
+Date: 11/20/2024
+Description: This program simulates the game of OUDS, where a player chooses the number of rounds to roll 2 dice 
+		and bet on whether the 2nd roll will be over, under, a double, or the same as the 1st roll to win or lose the 
+		amount of points wagered for. 
+*/
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,14 +43,13 @@
 			color: #f2cb57;
 			font-size: 28px;
 			font-family: Impact, fantasy;
-			height: 200px;
-			width: 425px;
+			height: 195px;
+			width: 725px;
 			align-items: center;
 			border-style: ridge;
 			border-width: 12px;
 			border-color: #f2cb57;
 			margin: auto;
-			width: 50%;
 			padding: 10px;
 			position: relative;
 			padding-top: 55px;
@@ -50,11 +58,11 @@
 
         #instructions {
             margin: 20px auto;
-            width: 80%;
+            width: 1170px;
             text-align: center;
 			background-color: white;
 			background-image: url(https://t4.ftcdn.net/jpg/02/39/45/37/360_F_239453726_6rjXgbVs6RLXaxPU2eG11UKjLV2aMomJ.jpg);
-			image-height: 50%;
+			image-height: 1000px;
 			image-width: auto;
 			background-size: cover;
 			border-style: ridge;
@@ -66,7 +74,6 @@
 			color: white;
 			font-size: 15px;
 			font-weight: bold;
-
         }
 		
 		#instructions-text {
@@ -102,15 +109,44 @@
 
         #game {
             margin: 20px auto;
-            width: 300px;
+            width:900px;
+			height:900px;
 			background-color: white;
+			background-image: url(https://img.freepik.com/free-vector/neon-air-frame_23-2149089917.jpg);
+			background-size: cover;
+			border-style: ridge;
+			border-color: #f2cb57;
+			border-width: 12px;	
         }
+		
+		#gametext {
+			padding: 300px;
+			padding-top: 185px;
+			color: white;
+			font-family: andale mono, monospace;
+			font-size: 17px;
+			font-weight: bold;
+			
+		}
 
         button {
             margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 20px;
+			padding-top: 15px;
+            font-size: 20px;
+			height: 90px;
+			width: 150px;
+			background-color: #ed2630;
+			border-style: ridge;
+			border-color: #f2cb57;
+			border-width: 5px;	
+		    font-family: Impact, fantasy;
+			
         }
+		
+		#roll1 {
+			
+		}
 
         input {
             margin: 10px;
@@ -141,6 +177,11 @@
             align-items: center;
             justify-content: center;
             margin: 10px;
+			color: #9cebff;
+			background-color: black;
+			border-style: double;
+			border-color: #9cebff;
+			border-width: 3px;
         }
 
         .wager-group label {
@@ -151,7 +192,17 @@
             margin: 10px;
             font-size: 16px;
             font-weight: bold;
+			background-color: black;
+			color: #9cebff;
         }
+		
+        .clicked {
+            background-image: url(https://i.pinimg.com/originals/75/09/82/750982c4ccc4737e643207f54c40170a.gif);
+            background-size: cover;
+			color: transparent;
+        }
+		
+
     </style>
 </head>
 <body>
@@ -171,28 +222,30 @@
 		</div>
     </div>
     <div id="game">
-        <button id="roll1">Roll 1</button>
-        <div id="roll1Result"></div>
-        <div class="wager-group">
-            <label for="wager">Enter a wager amount between 1 and 10:</label>
-            <input type="number" id="wager" placeholder="Enter your wager (1-10)" min="1" max="10">
-        </div>
-        <div class="radio-group">
-            <div class="radio-item">
-                <input type="radio" id="over" name="prediction" value="over">
-                <label for="over">Over</label>
-            </div>
-            <div class="radio-item">
-                <input type="radio" id="under" name="prediction" value="under">
-                <label for="under">Under</label>
-            </div>
-        </div>
-        <button id="submitPrediction">Submit Prediction</button>
-        <div id="roll2Result"></div>
-        <div id="outcomeMessage" class="message"></div>
-        <div id="resultMessage" class="message"></div>
-		<div>Initial Points: 20</div>
-        <div id="points">Current Points: 20</div>
+		<div id="gametext">
+			<button id="roll1">Click to Roll</button>
+			<div id="roll1Result"></div>
+			<div class="wager-group">
+				<label for="wager">Enter a wager amount between 1 and 10:</label>
+				<input type="number" id="wager" placeholder="Enter your wager (1-10)" min="1" max="10">
+			</div>
+			<div class="radio-group">
+				<div class="radio-item">
+					<input type="radio" id="over" name="prediction" value="over">
+					<label for="over">Over</label>
+				</div>
+				<div class="radio-item">
+					<input type="radio" id="under" name="prediction" value="under">
+					<label for="under">Under</label>
+				</div>
+			</div>
+			<button id="submitPrediction">Submit Bet</button>
+			<div id="roll2Result"></div>
+			<div id="outcomeMessage" class="message"></div>
+			<div id="resultMessage" class="message"></div>
+			<div>Initial Points: 20</div>
+			<div id="points">Current Points: 20</div>
+		</div>
     </div>
     <script>
         let points = 20;
@@ -202,12 +255,14 @@
             const roll1 = rollDice();
             roll1Sum = roll1[0] + roll1[1];
             document.getElementById('roll1Result').innerText = `Roll 1: Dice 1: ${roll1[0]}, Dice 2: ${roll1[1]}, Sum: ${roll1Sum}`;
+			document.getElementById('roll1').classList.add('clicked');
         });
 
         document.getElementById('submitPrediction').addEventListener('click', () => {
             const prediction = document.querySelector('input[name="prediction"]:checked');
             if (prediction) {
                 playGame(prediction.value);
+				document.getElementById('submitPrediction').classList.add('clicked');
             } else {
                 alert('Please select a prediction (Over or Under).');
             }
